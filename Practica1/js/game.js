@@ -781,11 +781,174 @@ var levels = {
                     name: "rocket2",
                     x: 140,
                     y: 405
+                }
+		]
+	 },
+        { // Fourth level
+            foreground: 'desert-foreground',
+            background: 'fondo4',
+            entities: [
+                {
+                    type: "ground",
+                    name: "dirt",
+                    x: 500,
+                    y: 440,
+                    width: 1000,
+                    height: 20,
+                    isStatic: true
+                },
+                {
+                    type: "ground",
+                    name: "wood",
+                    x: 185,
+                    y: 390,
+                    width: 30,
+                    height: 80,
+                    isStatic: true
+                },
+
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 520,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
+                    name: "glass",
+                    x: 520,
+                    y: 280,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "villain",
+                    name: "planet3",
+                    x: 520,
+                    y: 205,
+                    calories: 590
+                },
+
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 620,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
+                    name: "glass",
+                    x: 620,
+                    y: 280,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "villain",
+                    name: "planet2",
+                    x: 620,
+                    y: 205,
+                    calories: 420
+                },
+                {
+                    type: "villain",
+                    name: "planet4",
+                    x: 720,
+                    y: 205,
+                    calories: 420
+                },
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 720,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
+                    name: "glass",
+                    x: 720,
+                    y: 280,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "villain",
+                    name: "planet5",
+                    x: 820,
+                    y: 205,
+                    calories: 420
+                },
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 820,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
+                    name: "glass",
+                    x: 820,
+                    y: 280,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "villain",
+                    name: "planet6",
+                    x: 920,
+                    y: 205,
+                    calories: 420
+                },
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 920,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
+                    name: "glass",
+                    x: 920,
+                    y: 280,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "hero",
+                    name: "rocket1",
+                    x: 80,
+                    y: 405
+                },
+                {
+                    type: "hero",
+                    name: "rocket2",
+                    x: 140,
+                    y: 405
                 },
                 {
                     type: "hero",
                     name: "rocket3",
-                    x: 140,
+                    x: 20,
                     y: 405
                 },
 		]
@@ -954,6 +1117,13 @@ var entities = {
             restitution: 0.4,
         },
         "planet5": {
+            shape: "circle",
+            radius: 30,
+            density: 2.0,
+            friction: 0.5,
+            restitution: 0.4,
+        },
+        "planet6": {
             shape: "circle",
             radius: 30,
             density: 2.0,
