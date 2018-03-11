@@ -1,7 +1,7 @@
 #gamecontainer {
     width: 640px;
     height: 480px;
-    background: url(images/splashscreen.png);
+    background: url(images/splashscreen2.jpg);
     border: 1px solid black;
 }
 .gamelayer {
@@ -32,7 +32,7 @@
 #levelselectscreen input {
     margin: 20px;
     cursor: pointer;
-    background: url(images/icons/level.png) no-repeat;
+    background: url(images/icons/level.jpg) no-repeat;
     color: yellow;
     font-size: 20px;
     width: 64px;
