@@ -109,7 +109,7 @@ var game = {
     // Game Mode
     mode: "intro",
     // X & Y Coordinates of the slingshot
-    slingshotX: 140,
+    slingshotX: 180,
     slingshotY: 280,
     start: function () {
         $('.gamelayer').hide();
@@ -422,15 +422,15 @@ var levels = {
     // Level data
     data: [
         { // First level
-            foreground: 'desert-foreground',
-            background: 'clouds-background',
+            foreground: 'fondo4',
+            background: 'fondo4',
             entities: [
                 {
                     type: "ground",
                     name: "dirt",
                     x: 500,
                     y: 440,
-                    width: 1000,
+                    width: 2000,
                     height: 20,
                     isStatic: true
                 },
@@ -439,72 +439,52 @@ var levels = {
                     name: "wood",
                     x: 185,
                     y: 390,
-                    width: 30,
+                    width: 300,
                     height: 80,
                     isStatic: true
                 },
-
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 520,
-                    y: 380,
-                    angle: 90,
+				{
+					type: "block",
+					name: "wood",
+					x:520,
+					y:380,
+					angle: 90,
                     width: 100,
                     height: 25
-                },
-                {
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:620,
+					y:380,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
                     type: "block",
                     name: "glass",
-                    x: 520,
-                    y: 280,
-                    angle: 90,
+                    x: 570,
+                    y: 317.5,
                     width: 100,
                     height: 25
                 },
-                {
+				{
                     type: "villain",
-                    name: "burger",
-                    x: 520,
-                    y: 205,
+                    name: "planet3",
+                    x: 565,
+                    y: 305,
                     calories: 590
                 },
-
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 620,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 620,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "villain",
-                    name: "fries",
-                    x: 620,
-                    y: 205,
-                    calories: 420
-                },
-
                 {
                     type: "hero",
-                    name: "orange",
+                    name: "rocket1",
                     x: 80,
                     y: 405
                 },
                 {
                     type: "hero",
-                    name: "apple",
+                    name: "rocket2",
                     x: 140,
                     y: 405
                 },
