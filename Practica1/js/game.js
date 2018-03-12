@@ -471,8 +471,8 @@ var levels = {
                 },
 				{
                     type: "villain",
-                    name: "planet3",
-                    x: 565,
+                    name: "planet1",
+                    x: 570,
                     y: 305,
                     calories: 590
                 },
@@ -491,8 +491,8 @@ var levels = {
 		]
 	 },
         { // Second level
-            foreground: 'desert-foreground',
-            background: 'clouds-background',
+             foreground: 'fondo4',
+            background: 'fondo4',
             entities: [
                 {
                     type: "ground",
@@ -516,15 +516,6 @@ var levels = {
                 {
                     type: "block",
                     name: "wood",
-                    x: 820,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "wood",
                     x: 720,
                     y: 380,
                     angle: 90,
@@ -542,8 +533,17 @@ var levels = {
                 },
                 {
                     type: "block",
+                    name: "wood",
+                    x: 520,
+                    y: 380,
+                    angle: 90,
+                    width: 100,
+                    height: 25
+                },
+                {
+                    type: "block",
                     name: "glass",
-                    x: 670,
+                    x: 570,
                     y: 317.5,
                     width: 100,
                     height: 25
@@ -551,7 +551,7 @@ var levels = {
                 {
                     type: "block",
                     name: "glass",
-                    x: 770,
+                    x: 670,
                     y: 317.5,
                     width: 100,
                     height: 25
@@ -560,7 +560,7 @@ var levels = {
                 {
                     type: "block",
                     name: "glass",
-                    x: 670,
+                    x: 570,
                     y: 255,
                     angle: 90,
                     width: 100,
@@ -569,7 +569,7 @@ var levels = {
                 {
                     type: "block",
                     name: "glass",
-                    x: 770,
+                    x: 670,
                     y: 255,
                     angle: 90,
                     width: 100,
@@ -578,7 +578,7 @@ var levels = {
                 {
                     type: "block",
                     name: "wood",
-                    x: 720,
+                    x: 620,
                     y: 192.5,
                     width: 100,
                     height: 25
@@ -586,41 +586,41 @@ var levels = {
 
                 {
                     type: "villain",
-                    name: "burger",
-                    x: 715,
+                    name: "planet3",
+                    x: 615,
                     y: 155,
                     calories: 590
                 },
                 {
                     type: "villain",
-                    name: "fries",
-                    x: 670,
+                    name: "planet2",
+                    x: 570,
                     y: 405,
                     calories: 420
                 },
                 {
                     type: "villain",
-                    name: "sodacan",
-                    x: 765,
+                    name: "planet1",
+                    x: 665,
                     y: 400,
                     calories: 150
                 },
 
                 {
                     type: "hero",
-                    name: "strawberry",
+                    name: "rocket1",
                     x: 30,
                     y: 415
                 },
                 {
                     type: "hero",
-                    name: "orange",
+                    name: "rocket2",
                     x: 80,
                     y: 405
                 },
                 {
                     type: "hero",
-                    name: "apple",
+                    name: "rocket3",
                     x: 140,
                     y: 405
                 },
@@ -765,15 +765,15 @@ var levels = {
 		]
 	 },
         { // Fourth level
-            foreground: 'desert-foreground',
+             foreground: 'fondo4',
             background: 'fondo4',
             entities: [
-                {
+               {
                     type: "ground",
                     name: "dirt",
                     x: 500,
                     y: 440,
-                    width: 1000,
+                    width: 2000,
                     height: 20,
                     isStatic: true
                 },
@@ -782,138 +782,18 @@ var levels = {
                     name: "wood",
                     x: 185,
                     y: 390,
-                    width: 30,
+                    width: 300,
                     height: 80,
                     isStatic: true
                 },
-
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 520,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 520,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "villain",
-                    name: "planet3",
-                    x: 520,
-                    y: 205,
-                    calories: 590
-                },
-
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 620,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 620,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "villain",
-                    name: "planet2",
-                    x: 620,
-                    y: 205,
-                    calories: 420
-                },
-                {
+				{
                     type: "villain",
                     name: "planet4",
-                    x: 720,
+                    x: 520,
                     y: 205,
                     calories: 420
                 },
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 720,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 720,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "villain",
-                    name: "planet5",
-                    x: 820,
-                    y: 205,
-                    calories: 420
-                },
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 820,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 820,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "villain",
-                    name: "planet6",
-                    x: 920,
-                    y: 205,
-                    calories: 420
-                },
-                {
-                    type: "block",
-                    name: "wood",
-                    x: 920,
-                    y: 380,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
-                    type: "block",
-                    name: "glass",
-                    x: 920,
-                    y: 280,
-                    angle: 90,
-                    width: 100,
-                    height: 25
-                },
-                {
+				 {
                     type: "hero",
                     name: "rocket1",
                     x: 80,
@@ -921,16 +801,16 @@ var levels = {
                 },
                 {
                     type: "hero",
-                    name: "rocket2",
+                    name: "rocket3",
                     x: 140,
                     y: 405
                 },
-                {
+				{
                     type: "hero",
-                    name: "rocket3",
-                    x: 20,
+                    name: "rocket2",
+                    x: 200,
                     y: 405
-                },
+                }
 		]
 	 },
 	],
@@ -1007,53 +887,6 @@ var entities = {
             friction: 1.5,
             restitution: 0.2,
         },
-        "burger": {
-            shape: "circle",
-            fullHealth: 40,
-            radius: 25,
-            density: 1,
-            friction: 0.5,
-            restitution: 0.4,
-        },
-        "sodacan": {
-            shape: "rectangle",
-            fullHealth: 80,
-            width: 40,
-            height: 60,
-            density: 1,
-            friction: 0.5,
-            restitution: 0.7,
-        },
-        "fries": {
-            shape: "rectangle",
-            fullHealth: 50,
-            width: 40,
-            height: 50,
-            density: 1,
-            friction: 0.5,
-            restitution: 0.6,
-        },
-        "apple": {
-            shape: "circle",
-            radius: 25,
-            density: 1.5,
-            friction: 0.5,
-            restitution: 0.4,
-        },
-        "orange": {
-            shape: "circle",
-            radius: 25,
-            density: 1.5,
-            friction: 0.5,
-            restitution: 0.4,
-        },
-        "strawberry": {
-            shape: "circle",
-            radius: 15,
-            density: 2.0,
-            friction: 0.5,
-            restitution: 0.4,
-        },
         "rocket1": {
             shape: "circle",
             radius: 15,
@@ -1075,7 +908,7 @@ var entities = {
             friction: 0.5,
             restitution: 0.4,
         },
-        "planet2": {
+		"planet1": {
             shape: "circle",
             radius: 20,
 			fullHealth: 40,
@@ -1083,9 +916,17 @@ var entities = {
             friction: 0.5,
             restitution: 0.4,
         },
+        "planet2": {
+            shape: "circle",
+            radius: 25,
+			fullHealth: 40,
+            density: 2.0,
+            friction: 0.5,
+            restitution: 0.4,
+        },
         "planet3": {
             shape: "circle",
-            radius: 20,
+            radius: 30,
 			fullHealth: 40,
             density: 2.0,
             friction: 0.5,
@@ -1094,14 +935,14 @@ var entities = {
         "planet4": {
             shape: "circle",
 			fullHealth: 40,
-            radius: 20,
+            radius: 30,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
         },
         "planet5": {
             shape: "circle",
-            radius: 20,
+            radius: 35,
 			fullHealth: 40,
             density: 2.0,
             friction: 0.5,
@@ -1109,8 +950,16 @@ var entities = {
         },
         "planet6": {
             shape: "circle",
-			fullHealth: 40,
+			fullHealth: 35,
             radius: 20,
+            density: 2.0,
+            friction: 0.5,
+            restitution: 0.4,
+        },
+		"earth": {
+            shape: "circle",
+			fullHealth: 60,
+            radius: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
