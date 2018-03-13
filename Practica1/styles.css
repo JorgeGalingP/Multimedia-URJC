@@ -1,3 +1,5 @@
+/* seleccionamos la imagen del comienzo del juego */
+
 #gamecontainer {
     width: 640px;
     height: 480px;
@@ -11,7 +13,7 @@
     display: none;
 }
 
-/* Game Starting Menu Screen */
+/* estilos para la pantalla de start */
 
 #gamestartscreen {
     padding-top: 250px;
@@ -23,7 +25,7 @@
     cursor: pointer;
 }
 
-/* Level Selection Screen */
+/* estilos de la pantalla de selección de nivel */
 
 #levelselectscreen {
     padding-top: 150px;
@@ -40,7 +42,7 @@
     border: 0;
 }
 
-/* Loading Screen */
+/* estilos de la pantalla decarga del nivel */
 
 #loadingscreen {
     background: rgba(100, 100, 100, 0.3);
@@ -54,7 +56,7 @@
     font: 12px Arial;
 }
 
-/* Score Screen */
+/* estilos de la pantalla de puntuación */
 
 #scorescreen {
     height: 60px;
@@ -75,7 +77,7 @@
     right: 20px;
 }
 
-/* Ending Screen */
+/* estilos de la pantalla del final */
 
 endingscreen {
     text-align: center;

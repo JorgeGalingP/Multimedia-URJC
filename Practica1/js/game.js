@@ -1,4 +1,4 @@
-// Declare all the commonly used objects as variables for convenience
+// declaración de todas las variables del juego
 var b2Vec2 = Box2D.Common.Math.b2Vec2;
 var b2BodyDef = Box2D.Dynamics.b2BodyDef;
 var b2Body = Box2D.Dynamics.b2Body;
@@ -9,7 +9,7 @@ var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
-// Setup requestAnimationFrame and cancelAnimationFrame for use in the game code
+// comprobar el navegador en donde se ejecuta el juego
 (function () {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -37,22 +37,20 @@ var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
         };
 }());
 
+// load inicializa el juego
 $(window).load(function () {
     game.init();
 });
 
 var game = {
-    // Start initializing objects, preloading assets and display start screen
+    // inicializamos todos los componentes
     init: function () {
         // Initialize objects
         levels.init();
         loader.init();
         mouse.init();
 
-        // Load All Sound Effects and Background Music
-
-        //"Kindergarten" by Gurdonark
-        //http://ccmixter.org/files/gurdonark/26491 is licensed under a Creative Commons license
+        // cargamos los sonidos al juego
         game.backgroundMusic = loader.loadSound('audio/gurdonark-kindergarten');
 
         game.slingshotReleasedSound = loader.loadSound("audio/released");
@@ -63,11 +61,11 @@ var game = {
         };
 
 
-        // Hide all game layers and display the start screen
+        // sólo mostramos la pantalla de start y escondemos las demás
         $('.gamelayer').hide();
         $('#gamestartscreen').show();
 
-        //Get handler for game canvas and context
+        // ponemos el gamecanvas y el contexto del juego a 2d
         game.canvas = document.getElementById('gamecanvas');
         game.context = game.canvas.getContext('2d');
     },
@@ -80,7 +78,7 @@ var game = {
         var toggleImage = $("#togglemusic")[0];
         toggleImage.src = "images/icons/nosound.png";
         game.backgroundMusic.pause();
-        game.backgroundMusic.currentTime = 0; // Go to the beginning of the song
+        game.backgroundMusic.currentTime = 0;
     },
     toggleBackgroundMusic: function () {
         var toggleImage = $("#togglemusic")[0];
@@ -106,14 +104,15 @@ var game = {
         game.lastUpdateTime = undefined;
         levels.load(game.currentLevel.number + 1);
     },
-    // Game Mode
+    // modo intro del juego
     mode: "intro",
-    // X & Y Coordinates of the slingshot
+
+    // cordenadas del tirachinas
     slingshotX: 180,
     slingshotY: 280,
     start: function () {
         $('.gamelayer').hide();
-        // Display the game canvas and score
+        // mostramos el gamecanvas y la puntuación
         $('#gamecanvas').show();
         $('#scorescreen').show();
 
@@ -125,19 +124,12 @@ var game = {
         game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
     },
 
-
-
-    // Maximum panning speed per frame in pixels
     maxSpeed: 3,
-    // Minimum and Maximum panning offset
     minOffset: 0,
     maxOffset: 300,
-    // Current panning offset
     offsetLeft: 0,
-    // The game score
     score: 0,
 
-    //Pan the screen to center on newCenter
     panTo: function (newCenter) {
         if (Math.abs(newCenter - game.offsetLeft - game.canvas.width / 4) > 0 && game.offsetLeft <= game.maxOffset && game.offsetLeft >= game.minOffset) {
 
@@ -225,7 +217,6 @@ var game = {
                 game.slingshotReleasedSound.play();
                 var impulseScaleFactor = 0.75;
 
-                // Coordinates of center of slingshot (where the band is tied to slingshot)
                 var slingshotCenterX = game.slingshotX + 35;
                 var slingshotCenterY = game.slingshotY + 25;
                 var impulse = new b2Vec2((slingshotCenterX - mouse.x - game.offsetLeft) * impulseScaleFactor, (slingshotCenterY - mouse.y) * impulseScaleFactor);
@@ -238,12 +229,13 @@ var game = {
             }
         }
 
+        // modo del juego en donde hemos disparado el cohete
         if (game.mode == "fired") {
-            //pan to wherever the current hero is...
+
             var heroX = game.currentHero.GetPosition().x * box2d.scale;
             game.panTo(heroX);
 
-            //and wait till he stops moving  or is out of bounds
+            // esperamos a que el cohete no se mueva o se vaya fuera de la pantalla para cargar el nuevo cohete 
             if (!game.currentHero.IsAwake() || heroX < 0 || heroX > game.currentLevel.foregroundImage.width) {
                 // then delete the old hero
                 box2d.world.DestroyBody(game.currentHero);
@@ -257,19 +249,19 @@ var game = {
         if (game.mode == "load-next-hero") {
             game.countHeroesAndVillains();
 
-            // Check if any villains are alive, if not, end the level (success)
+            // comprobamos si el array de los planetas está lleno y si todos han sido eliminados, cambiamos el modo del juego a terminado
             if (game.villains.length == 0) {
                 game.mode = "level-success";
                 return;
             }
 
-            // Check if there are any more heroes left to load, if not end the level (failure)
+            // comprobamos si el array de los cohetes está lleno y si está vacio, hemos fallado
             if (game.heroes.length == 0) {
                 game.mode = "level-failure"
                 return;
             }
 
-            // Load the hero and set mode to wait-for-firing
+            // cargamos el cohete y esperamos a que el usuario pulse en el juego
             if (!game.currentHero) {
                 game.currentHero = game.heroes[game.heroes.length - 1];
                 game.currentHero.SetPosition({
@@ -283,7 +275,7 @@ var game = {
                 game.currentHero.SetAngularVelocity(0);
                 game.currentHero.SetAwake(true);
             } else {
-                // Wait for hero to stop bouncing and fall asleep and then switch to wait-for-firing
+                // esperamos a que el cohete no se mueva
                 game.panTo(game.slingshotX);
                 if (!game.currentHero.IsAwake()) {
                     game.mode = "wait-for-firing";
@@ -291,6 +283,7 @@ var game = {
             }
         }
 
+        // cargamos la pantalla de final del juego si fallamos o acabamos el juego
         if (game.mode == "level-success" || game.mode == "level-failure") {
             if (game.panTo(0)) {
                 game.ended = true;
@@ -304,25 +297,24 @@ var game = {
         game.stopBackgroundMusic();
         if (game.mode == "level-success") {
             if (game.currentLevel.number < levels.data.length - 1) {
-                $('#endingmessage').html('Level Complete. Well Done!!!');
+                $('#endingmessage').html('Nivel Completado. ¡Bien hecho!');
                 $("#playnextlevel").show();
             } else {
-                $('#endingmessage').html('All Levels Complete. Well Done!!!');
+                $('#endingmessage').html('Todos los niveles completados. ¡Bien hecho!');
                 $("#playnextlevel").hide();
             }
         } else if (game.mode == "level-failure") {
-            $('#endingmessage').html('Failed. Play Again?');
+            $('#endingmessage').html('¡Has perdido!. ¿Deseas continuar?');
             $("#playnextlevel").hide();
         }
 
         $('#endingscreen').show();
     },
 
+    // animaciones de la pantalla y las entities
     animate: function () {
-        // Animate the background
         game.handlePanning();
 
-        // Animate the characters
         var currentTime = new Date().getTime();
         var timeStep;
         if (game.lastUpdateTime) {
@@ -335,22 +327,21 @@ var game = {
         game.lastUpdateTime = currentTime;
 
 
-        //  Draw the background with parallax scrolling
+        // dibujamos el fondo
         game.context.drawImage(game.currentLevel.backgroundImage, game.offsetLeft / 4, 0, 640, 480, 0, 0, 640, 480);
         game.context.drawImage(game.currentLevel.foregroundImage, game.offsetLeft, 0, 640, 480, 0, 0, 640, 480);
 
-        // Draw the slingshot
+        // dibujamos el tirachinas
         game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
 
-        // Draw all the bodies
+        // dibujamos todos los objetos
         game.drawAllBodies();
 
-        // Draw the band when we are firing a hero
+        // dibujamos la banda del tirachinas sólo cuando el modo del juego ha cambiado a "wait-for-firing" o "firing"
         if (game.mode == "wait-for-firing" || game.mode == "firing") {
             game.drawSlingshotBand();
         }
 
-        // Draw the front of the slingshot
         game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
 
         if (!game.ended) {
@@ -360,7 +351,7 @@ var game = {
     drawAllBodies: function () {
         box2d.world.DrawDebugData();
 
-        // Iterate through all the bodies and draw them on the game canvas
+        // iteramos en los entities y los dibujamos en el debug
         for (var body = box2d.world.GetBodyList(); body; body = body.GetNext()) {
             var entity = body.GetUserData();
 
@@ -370,7 +361,7 @@ var game = {
                     box2d.world.DestroyBody(body);
                     if (entity.type == "villain") {
                         game.score += entity.calories;
-                        $('#score').html('Score: ' + game.score);
+                        $('#score').html('Puntuación: ' + game.score);
                     }
                     if (entity.breakSound) {
                         entity.breakSound.play();
@@ -382,10 +373,9 @@ var game = {
         }
     },
     drawSlingshotBand: function () {
-        game.context.strokeStyle = "rgb(68,31,11)"; // Darker brown color
-        game.context.lineWidth = 6; // Draw a thick line
+        game.context.strokeStyle = "rgb(68,31,11)";
+        game.context.lineWidth = 6;
 
-        // Use angle hero has been dragged and radius to calculate coordinates of edge of hero wrt. hero center
         var radius = game.currentHero.GetUserData().radius;
         var heroX = game.currentHero.GetPosition().x * box2d.scale;
         var heroY = game.currentHero.GetPosition().y * box2d.scale;
@@ -396,22 +386,20 @@ var game = {
 
 
 
+        // empezamos a dibujar en el contexto del juego
         game.context.beginPath();
-        // Start line from top of slingshot (the back side)
+
         game.context.moveTo(game.slingshotX + 50 - game.offsetLeft, game.slingshotY + 25);
 
-        // Draw line to center of hero
         game.context.lineTo(heroX - game.offsetLeft, heroY);
-        game.context.stroke();
+        game.context.stroke(); // cambiamos a stroke
 
-        // Draw the hero on the back band
         entities.draw(game.currentHero.GetUserData(), game.currentHero.GetPosition(), game.currentHero.GetAngle());
 
         game.context.beginPath();
-        // Move to edge of hero farthest from slingshot top
+
         game.context.moveTo(heroFarEdgeX - game.offsetLeft, heroFarEdgeY);
 
-        // Draw line back to top of slingshot (the front side)
         game.context.lineTo(game.slingshotX - game.offsetLeft + 10, game.slingshotY + 30)
         game.context.stroke();
     },
@@ -419,9 +407,9 @@ var game = {
 }
 
 var levels = {
-    // Level data
+    // Niveles
     data: [
-        { // First level
+        { // Primer nivel
             foreground: 'fondo4',
             background: 'fondo4',
             entities: [
@@ -443,25 +431,25 @@ var levels = {
                     height: 80,
                     isStatic: true
                 },
-				{
-					type: "block",
-					name: "wood",
-					x:520,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 520,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:620,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 620,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
+                {
                     type: "block",
                     name: "glass",
                     x: 570,
@@ -469,7 +457,7 @@ var levels = {
                     width: 100,
                     height: 25
                 },
-				{
+                {
                     type: "villain",
                     name: "planet1",
                     x: 570,
@@ -490,8 +478,8 @@ var levels = {
                 },
 		]
 	 },
-        { // Second level
-             foreground: 'fondo4',
+        { // Segundo nivel
+            foreground: 'fondo4',
             background: 'fondo4',
             entities: [
                 {
@@ -626,7 +614,7 @@ var levels = {
                 },
 			]
 		},
-        { // Third level
+        { // Tercer nivel
             foreground: 'fondo4',
             background: 'fondo4',
             entities: [
@@ -770,7 +758,7 @@ var levels = {
                 },
 		]
 	 },
-		{ // Forth level
+        { // Cuerto nivel
             foreground: 'fondo4',
             background: 'fondo4',
             entities: [
@@ -833,7 +821,7 @@ var levels = {
                     y: 205,
                     calories: 420
                 },
-				{
+                {
                     type: "block",
                     name: "wood",
                     x: 620,
@@ -869,11 +857,11 @@ var levels = {
                 },
 		]
 	 },
-        { // Fifth level
-             foreground: 'fondo4',
+        { // Quinto nivel
+            foreground: 'fondo4',
             background: 'fondo4',
             entities: [
-               {
+                {
                     type: "ground",
                     name: "dirt",
                     x: 500,
@@ -891,43 +879,43 @@ var levels = {
                     height: 80,
                     isStatic: true
                 },
-				{
-					type: "block",
-					name: "wood",
-					x:400,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 400,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:400,
-					y:280,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 400,
+                    y: 280,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:500,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 500,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:500,
-					y:280,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 500,
+                    y: 280,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
+                {
                     type: "block",
                     name: "glass",
                     x: 450,
@@ -935,25 +923,25 @@ var levels = {
                     width: 122,
                     height: 25
                 },
-				{
-					type: "block",
-					name: "wood",
-					x:530,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 530,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:620,
-					y:380,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 620,
+                    y: 380,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
+                {
                     type: "block",
                     name: "glass",
                     x: 575,
@@ -961,7 +949,7 @@ var levels = {
                     width: 112,
                     height: 25
                 },
-				{
+                {
                     type: "block",
                     name: "glass",
                     x: 575,
@@ -969,82 +957,82 @@ var levels = {
                     width: 112,
                     height: 25
                 },
-				{
-					type: "block",
-					name: "wood",
-					x:532,
-					y:280,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 532,
+                    y: 280,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:620,
-					y:280,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 620,
+                    y: 280,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
-					type: "block",
-					name: "wood",
-					x:455,
-					y:195,
-					angle: 90,
+                {
+                    type: "block",
+                    name: "wood",
+                    x: 455,
+                    y: 195,
+                    angle: 90,
                     width: 100,
                     height: 25
 				},
-				{
+                {
                     type: "block",
                     name: "glass",
                     x: 455,
-                    y:140.5,
+                    y: 140.5,
                     width: 112,
                     height: 25
                 },
-				{
+                {
                     type: "villain",
                     name: "planet5",
                     x: 450,
                     y: 390,
                     calories: 420
                 },
-				{
+                {
                     type: "villain",
                     name: "earth",
                     x: 575,
                     y: 180,
                     calories: 420
                 },
-				{
+                {
                     type: "villain",
                     name: "planet3",
                     x: 578,
                     y: 405,
                     calories: 420
                 },
-				{
+                {
                     type: "villain",
                     name: "planet2",
                     x: 575,
                     y: 290,
                     calories: 420
                 },
-				{
+                {
                     type: "hero",
                     name: "rocket1",
                     x: 80,
                     y: 405
                 },
-				{
+                {
                     type: "hero",
                     name: "rocket2",
                     x: 140,
                     y: 405
                 },
-				{
+                {
                     type: "hero",
                     name: "rocket3",
                     x: 200,
@@ -1054,28 +1042,28 @@ var levels = {
 	 },
 	],
 
-    // Initialize level selection screen
+    // inicializamos la pantalla de selección de niveles
     init: function () {
         var html = "";
         for (var i = 0; i < levels.data.length; i++) {
             var level = levels.data[i];
             html += '<input type="button" value="' + (i + 1) + '">';
         };
+
         $('#levelselectscreen').html(html);
 
-        // Set the button click event handlers to load level
         $('#levelselectscreen input').click(function () {
             levels.load(this.value - 1);
             $('#levelselectscreen').hide();
         });
     },
 
-    // Load all data and images for a specific level
+    // cargamos el nivel elegido y todos los objetos que necesiten
     load: function (number) {
-        //Initialize box2d world whenever a level is loaded
+        // inicializamos el mundo de box2d
         box2d.init();
 
-        // declare a new current level object
+        // inicializamos el nivel elegido
         game.currentLevel = {
             number: number,
             hero: []
@@ -1086,19 +1074,19 @@ var levels = {
         var level = levels.data[number];
 
 
-        //load the background, foreground and slingshot images
+        // cargamos assets
         game.currentLevel.backgroundImage = loader.loadImage("images/backgrounds/" + level.background + ".png");
         game.currentLevel.foregroundImage = loader.loadImage("images/backgrounds/" + level.foreground + ".png");
         game.slingshotImage = loader.loadImage("images/slingshot.png");
         game.slingshotFrontImage = loader.loadImage("images/slingshot-front.png");
 
-        // Load all the entities
+        // cargamos entities
         for (var i = level.entities.length - 1; i >= 0; i--) {
             var entity = level.entities[i];
             entities.create(entity);
         };
 
-        //Call game.start() once the assets have loaded
+        // y cuando este todo cargado, cargamos el nivel y lo mostramos
         if (loader.loaded) {
             game.start()
         } else {
@@ -1107,6 +1095,7 @@ var levels = {
     }
 }
 
+// nuevas entities
 var entities = {
     definitions: {
         "glass": {
@@ -1147,10 +1136,10 @@ var entities = {
             friction: 0.5,
             restitution: 0.4,
         },
-		"planet1": {
+        "planet1": {
             shape: "circle",
             radius: 20,
-			fullHealth: 40,
+            fullHealth: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
@@ -1158,7 +1147,7 @@ var entities = {
         "planet2": {
             shape: "circle",
             radius: 25,
-			fullHealth: 40,
+            fullHealth: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
@@ -1166,14 +1155,14 @@ var entities = {
         "planet3": {
             shape: "circle",
             radius: 30,
-			fullHealth: 40,
+            fullHealth: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
         },
         "planet4": {
             shape: "circle",
-			fullHealth: 40,
+            fullHealth: 40,
             radius: 30,
             density: 2.0,
             friction: 0.5,
@@ -1182,29 +1171,29 @@ var entities = {
         "planet5": {
             shape: "circle",
             radius: 35,
-			fullHealth: 40,
+            fullHealth: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
         },
         "planet6": {
             shape: "circle",
-			fullHealth: 35,
+            fullHealth: 35,
             radius: 20,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
         },
-		"earth": {
+        "earth": {
             shape: "circle",
-			fullHealth: 60,
+            fullHealth: 60,
             radius: 40,
             density: 2.0,
             friction: 0.5,
             restitution: 0.4,
         },
     },
-    // take the entity, create a box2d body and add it to the world
+    // seleccionamos la entity y lo mostramos en el mundo box2d
     create: function (entity) {
         var definition = entities.definitions[entity.name];
         if (!definition) {
@@ -1212,7 +1201,7 @@ var entities = {
             return;
         }
         switch (entity.type) {
-            case "block": // simple rectangles
+            case "block": // rectangulos
                 entity.health = definition.fullHealth;
                 entity.fullHealth = definition.fullHealth;
                 entity.shape = "rectangle";
@@ -1220,14 +1209,13 @@ var entities = {
                 entity.breakSound = game.breakSound[entity.name];
                 box2d.createRectangle(entity, definition);
                 break;
-            case "ground": // simple rectangles
-                // No need for health. These are indestructible
+            case "ground": // rectangulos en la tierra
+                // sin vida
                 entity.shape = "rectangle";
-                // No need for sprites. These won't be drawn at all
                 box2d.createRectangle(entity, definition);
                 break;
-            case "hero": // simple circles
-            case "villain": // can be circles or rectangles
+            case "hero": // circulos para los cohetes
+            case "villain": // y circulos para los planetas
                 entity.health = definition.fullHealth;
                 entity.fullHealth = definition.fullHealth;
                 entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
@@ -1248,7 +1236,7 @@ var entities = {
         }
     },
 
-    // take the entity, its position and angle and draw it on the game canvas
+    // cogemos la entity y su posición y lo dibujamos en el canvas
     draw: function (entity, position, angle) {
         game.context.translate(position.x * box2d.scale - game.offsetLeft, position.y * box2d.scale);
         game.context.rotate(angle);
@@ -1265,7 +1253,6 @@ var entities = {
                 }
                 break;
             case "ground":
-                // do nothing... We will draw objects like the ground & slingshot separately
                 break;
         }
 
@@ -1278,9 +1265,9 @@ var entities = {
 var box2d = {
     scale: 30,
     init: function () {
-        // Setup the box2d World that will do most of they physics calculation
-        var gravity = new b2Vec2(0, 9.8); //declare gravity as 9.8 m/s^2 downwards
-        var allowSleep = true; //Allow objects that are at rest to fall asleep and be excluded from calculations
+        // código para configurar correctamente el mundo de box2d
+        var gravity = new b2Vec2(0, 9.8);
+        var allowSleep = true;
         box2d.world = new b2World(gravity, allowSleep);
 
         // Setup debug draw
@@ -1301,10 +1288,8 @@ var box2d = {
             var entity2 = body2.GetUserData();
 
             var impulseAlongNormal = Math.abs(impulse.normalImpulses[0]);
-            // This listener is called a little too often. Filter out very tiny impulses.
-            // After trying different values, 5 seems to work well
             if (impulseAlongNormal > 5) {
-                // If objects have a health, reduce health by the impulse value
+                // si las entities tienen vida, entonces reducimos esa vida si son golpeados
                 if (entity1.health) {
                     entity1.health -= impulseAlongNormal;
                 }
@@ -1313,7 +1298,6 @@ var box2d = {
                     entity2.health -= impulseAlongNormal;
                 }
 
-                // If objects have a bounce sound, play them
                 if (entity1.bounceSound) {
                     entity1.bounceSound.play();
                 }
@@ -1326,11 +1310,9 @@ var box2d = {
         box2d.world.SetContactListener(listener);
     },
     step: function (timeStep) {
-        // velocity iterations = 8
-        // position iterations = 3
         box2d.world.Step(timeStep, 8, 3);
     },
-    createRectangle: function (entity, definition) {
+    createRectangle: function (entity, definition) { // creamos los rectangulos
         var bodyDef = new b2BodyDef;
         if (entity.isStatic) {
             bodyDef.type = b2Body.b2_staticBody;
@@ -1359,7 +1341,7 @@ var box2d = {
         return body;
     },
 
-    createCircle: function (entity, definition) {
+    createCircle: function (entity, definition) { // creamos los circulos
         var bodyDef = new b2BodyDef;
         if (entity.isStatic) {
             bodyDef.type = b2Body.b2_staticBody;
@@ -1390,24 +1372,21 @@ var box2d = {
 
 var loader = {
     loaded: true,
-    loadedCount: 0, // Assets that have been loaded so far
-    totalCount: 0, // Total number of assets that need to be loaded
+    loadedCount: 0, // cantidad de assets cargados
+    totalCount: 0,
 
     init: function () {
-        // check for sound support
+        // comprobamos el soporte del sonido tal y como pone en las diapositivas de la asignatura
         var mp3Support, oggSupport;
         var audio = document.createElement('audio');
         if (audio.canPlayType) {
-            // Currently canPlayType() returns: "", "maybe" or "probably"
             mp3Support = "" !== audio.canPlayType('audio/mpeg');
             oggSupport = "" !== audio.canPlayType('audio/ogg; codecs="vorbis"');
         } else {
-            //The audio tag is not supported
+            // no soportado
             mp3Support = false;
             oggSupport = false;
         }
-
-        // Check for ogg, then mp3, and finally set soundFileExtn to undefined
         loader.soundFileExtn = oggSupport ? ".ogg" : mp3Support ? ".mp3" : undefined;
 
 
@@ -1450,7 +1429,6 @@ var loader = {
         this.loaded = false;
         $('#loadingscreen').show();
         audio.addEventListener("canplaythrough", loader.itemLoaded, false);
-        //audio.addEventListener("load", loader.itemLoaded, false);
         audio.preload = "auto";
         audio.src = url + loader.soundFileExtn;
         audio.load();
@@ -1466,8 +1444,6 @@ var loader = {
         this.loaded = false;
         $('#loadingscreen').show();
         videoObject.addEventListener("canplaythrough", loader.itemLoaded, false);
-        //videoObject.addEventListener("canplay", loader.itemLoaded, false);
-        //videoObject.addEventListener("loadeddata", loader.itemLoaded, false);
         videoObject.preload = "auto";
         videoObject.src = url + loader.videoFileExtn;
         videoObject.load();
@@ -1494,70 +1470,10 @@ var loader = {
     updateStatus: function () {
         $('#loadingmessage').html('Loading ' + loader.loadedCount + ' of ' + loader.totalCount + '...');
         var progress = loader.totalCount ? Math.round(100 * loader.loadedCount / loader.totalCount) : 100;
-        //$('#progressbar')[0].value = progress;
     }
 };
 
-/*
-var loader = {
-	loaded:true,
-	loadedCount:0, // Assets that have been loaded so far
-	totalCount:0, // Total number of assets that need to be loaded
-
-	init:function(){
-		// check for sound support
-		var mp3Support,oggSupport;
-		var audio = document.createElement('audio');
-		if (audio.canPlayType) {
-	   		// Currently canPlayType() returns: "", "maybe" or "probably"
-	  		mp3Support = "" != audio.canPlayType('audio/mpeg');
-	  		oggSupport = "" != audio.canPlayType('audio/ogg; codecs="vorbis"');
-		} else {
-			//The audio tag is not supported
-			mp3Support = false;
-			oggSupport = false;
-		}
-
-		// Check for ogg, then mp3, and finally set soundFileExtn to undefined
-		loader.soundFileExtn = oggSupport?".ogg":mp3Support?".mp3":undefined;
-	},
-
-	loadImage:function(url){
-		this.totalCount++;
-		this.loaded = false;
-		$('#loadingscreen').show();
-		var image = new Image();
-		image.src = url;
-		image.onload = loader.itemLoaded;
-		return image;
-	},
-	soundFileExtn:".ogg",
-	loadSound:function(url){
-		this.totalCount++;
-		this.loaded = false;
-		$('#loadingscreen').show();
-		var audio = new Audio();
-		audio.src = url+loader.soundFileExtn;
-		audio.addEventListener("canplaythrough", loader.itemLoaded, false);
-		return audio;
-	},
-	itemLoaded:function(){
-		loader.loadedCount++;
-		$('#loadingmessage').html('Loaded '+loader.loadedCount+' of '+loader.totalCount);
-		if (loader.loadedCount === loader.totalCount){
-			// Loader has loaded completely..
-			loader.loaded = true;
-			// Hide the loading screen
-			$('#loadingscreen').hide();
-			//and call the loader.onload method if it exists
-			if(loader.onload){
-				loader.onload();
-				loader.onload = undefined;
-			}
-		}
-	}
-}
-*/
+// raton
 var mouse = {
     x: 0,
     y: 0,
