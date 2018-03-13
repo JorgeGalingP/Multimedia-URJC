@@ -586,7 +586,7 @@ var levels = {
 
                 {
                     type: "villain",
-                    name: "planet3",
+                    name: "planet1",
                     x: 615,
                     y: 155,
                     calories: 590
@@ -600,7 +600,7 @@ var levels = {
                 },
                 {
                     type: "villain",
-                    name: "planet1",
+                    name: "planet3",
                     x: 665,
                     y: 400,
                     calories: 150
@@ -753,15 +753,21 @@ var levels = {
                 {
                     type: "hero",
                     name: "rocket1",
+                    x: 30,
+                    y: 415
+                },
+                {
+                    type: "hero",
+                    name: "rocket2",
                     x: 80,
                     y: 405
                 },
                 {
                     type: "hero",
-                    name: "rocket2",
+                    name: "rocket3",
                     x: 140,
                     y: 405
-                }
+                },
 		]
 	 },
         { // Fourth level
@@ -787,27 +793,161 @@ var levels = {
                     isStatic: true
                 },
 				{
+					type: "block",
+					name: "wood",
+					x:400,
+					y:380,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:400,
+					y:280,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:500,
+					y:380,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:500,
+					y:280,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+                    type: "block",
+                    name: "glass",
+                    x: 450,
+                    y: 220.5,
+                    width: 122,
+                    height: 25
+                },
+				{
+					type: "block",
+					name: "wood",
+					x:530,
+					y:380,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:620,
+					y:380,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+                    type: "block",
+                    name: "glass",
+                    x: 575,
+                    y: 320.5,
+                    width: 112,
+                    height: 25
+                },
+				{
+                    type: "block",
+                    name: "glass",
+                    x: 575,
+                    y: 220.5,
+                    width: 112,
+                    height: 25
+                },
+				{
+					type: "block",
+					name: "wood",
+					x:532,
+					y:280,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:620,
+					y:280,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+					type: "block",
+					name: "wood",
+					x:455,
+					y:195,
+					angle: 90,
+                    width: 100,
+                    height: 25
+				},
+				{
+                    type: "block",
+                    name: "glass",
+                    x: 455,
+                    y:140.5,
+                    width: 112,
+                    height: 25
+                },
+				{
                     type: "villain",
-                    name: "planet4",
-                    x: 520,
-                    y: 205,
+                    name: "planet5",
+                    x: 450,
+                    y: 390,
                     calories: 420
                 },
-				 {
+				{
+                    type: "villain",
+                    name: "earth",
+                    x: 575,
+                    y: 180,
+                    calories: 420
+                },
+				{
+                    type: "villain",
+                    name: "planet3",
+                    x: 578,
+                    y: 405,
+                    calories: 420
+                },
+				{
+                    type: "villain",
+                    name: "planet2",
+                    x: 575,
+                    y: 290,
+                    calories: 420
+                },
+				{
                     type: "hero",
                     name: "rocket1",
                     x: 80,
                     y: 405
                 },
-                {
+				{
                     type: "hero",
-                    name: "rocket3",
+                    name: "rocket2",
                     x: 140,
                     y: 405
                 },
 				{
                     type: "hero",
-                    name: "rocket2",
+                    name: "rocket3",
                     x: 200,
                     y: 405
                 }
