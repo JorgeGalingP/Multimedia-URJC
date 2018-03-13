@@ -3,7 +3,7 @@
 This game was made using HTML5 and Javascript/jQuery
 
 ## Credits
-@JorgeGalingP and @Adri
+@JorgeGalingP and @adrianmartin16
 ### Artwork
 Artwork can be get for free here [Open Game Art](opengameart.org)
 
