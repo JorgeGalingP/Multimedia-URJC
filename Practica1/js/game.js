@@ -627,8 +627,8 @@ var levels = {
 			]
 		},
         { // Third level
-            foreground: 'desert-foreground',
-            background: 'fondo3',
+            foreground: 'fondo4',
+            background: 'fondo4',
             entities: [
                 {
                     type: "ground",
